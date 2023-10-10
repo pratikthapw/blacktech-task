@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Page404Img from "../../public/404Page.png";
+import Page404Img from "../images/404Page.png";
 
 function Page404() {
   return (

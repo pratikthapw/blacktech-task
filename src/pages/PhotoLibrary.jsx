@@ -1,3 +1,9 @@
+import ShowPhotos from "../components/ShowPhotos";
+
 export default function PhotoLibrary() {
-  return <div>PhotoLibrary</div>;
+  return (
+    <div>
+      <ShowPhotos />
+    </div>
+  );
 }
