@@ -4,7 +4,7 @@ import InputBox from "./InputBox";
 import { useState } from "react";
 
 export default function ShowPhotos() {
-  const [submitValue, setSubmitValue] = useState("cat");
+  const [submitValue, setSubmitValue] = useState("restaurant");
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ["photos", submitValue],
