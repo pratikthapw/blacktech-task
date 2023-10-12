@@ -44,12 +44,11 @@ export async function addAppointment(newAppoint) {
   return data;
 }
 
-export async function updateAppointment(id) {
+export async function updateAppointment([id, obj]) {
   const { data, error } = await supabase
     .from("appoints")
-    .update({ other_column: "otherValue" })
-    .eq("id", id)
-    .select();
+    .update(obj)
+    .eq("id", id);
 
   if (error) {
     console.error(error);

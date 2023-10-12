@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useQuery } from "@tanstack/react-query";
-import {
-  deleteAppointment,
-  getAppointments,
-  updateAppointment,
-} from "../services/getApi";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
+import useAppointRows from "../Hooks/useAppointRows";
+import useDeleteAppoint from "../Hooks/useDeleteAppoint";
 
-export default function ShowAppoints() {
-  const { data: appoints, isLoading } = useQuery({
-    queryKey: ["appoints"],
-    queryFn: getAppointments,
-  });
+export default function ShowAppoints(formProps) {
+  const { appoints, isLoading } = useAppointRows();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -21,19 +15,28 @@ export default function ShowAppoints() {
   return (
     <div className="flex flex-col gap-y-4">
       {appoints.map((item) => (
-        <AppointLayout key={item.id} rowData={item} />
+        <AppointLayout key={item.id} rowData={item} {...formProps} />
       ))}
     </div>
   );
 }
 
-function AppointLayout({ rowData }) {
+function AppointLayout({ rowData, setIsFormOpen }) {
+  const [, setSearchParams] = useSearchParams();
+  const { deleteAppoint, isDeleting } = useDeleteAppoint();
+
   function handleDelete() {
-    deleteAppointment(rowData.id);
+    deleteAppoint(rowData.id);
   }
   function handleUpdate() {
-    updateAppointment(rowData.id);
+    setIsFormOpen((v) => (v ? v : !v));
+    setSearchParams({ id: rowData?.id });
   }
+
+  if (isDeleting) {
+    <h2>Deleting</h2>;
+  }
+
   return (
     <div className="flex items-start gap-x-4">
       <div className="flex flex-col items-center gap-y-2">
