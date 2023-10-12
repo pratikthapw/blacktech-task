@@ -37,15 +37,6 @@ export default function AppointForm({ isFormOpen, setIsFormOpen }) {
     } else {
       updateAppoint([rowId, data], {
         onSuccess: () => {
-          // if (selectedRow === undefined) {
-          //   reset({
-          //     owner_name: "",
-          //     pet_name: "",
-          //     date: "",
-          //     time: "",
-          //     note: "",
-          //   });
-          // }
           setIsFormOpen((v) => !v);
           navigate("/");
         },
@@ -58,17 +49,19 @@ export default function AppointForm({ isFormOpen, setIsFormOpen }) {
   }
 
   return (
-    <div className="border">
+    <div className="">
       <button
         onClick={() => setIsFormOpen((v) => !v)}
-        className="w-full bg-slate-500 p-4 text-center font-bold"
+        className={`w-full ${
+          isFormOpen ? "rounded-t-lg" : "rounded-lg"
+        } bg-green-600 py-2 text-center font-bold`}
       >
         Add Appointment
       </button>
       {isFormOpen ? (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-y-4"
+          className="border-1 flex flex-col gap-y-4 rounded-b-lg border border-t-0 border-slate-400 px-2 py-4 pt-4 dark:border-slate-600"
         >
           <FormInputs
             forId={"owner_name"}
@@ -105,7 +98,7 @@ export default function AppointForm({ isFormOpen, setIsFormOpen }) {
           />
           <button
             type="submit"
-            className="self-end rounded-lg bg-purple-700 p-2"
+            className="self-end rounded-md bg-green-600 px-3 py-2 text-sm font-bold"
           >
             Submit
           </button>
@@ -125,23 +118,27 @@ function FormInputs({
   defaultValue = "",
 }) {
   return (
-    <div className="flex items-center justify-between gap-x-4">
-      <label htmlFor={forId}>{label}</label>
+    <div className="flex justify-between gap-x-4">
+      <label htmlFor={forId} className="font-medium">
+        {label}
+      </label>
       {type !== "textarea" ? (
-        <input
-          id={forId}
-          type={inputType}
-          className="text-slate-800"
-          defaultValue={defaultValue}
-          {...register(forId)}
-        />
+        <div className="h-8 w-6/12 max-w-xs rounded-md">
+          <input
+            id={forId}
+            type={inputType}
+            className="border-1 h-full w-full rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100"
+            defaultValue={defaultValue}
+            {...register(forId)}
+          />
+        </div>
       ) : (
         <textarea
           id={forId}
           cols="30"
-          rows="2"
+          rows="3"
           defaultValue={defaultValue}
-          className="text-slate-800"
+          className="border-1 w-8/12 rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100"
           placeholder="Detailed comments about the condition"
           {...register(forId)}
         ></textarea>
