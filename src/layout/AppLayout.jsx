@@ -6,7 +6,10 @@ export default function AppLayout() {
   return (
     <section className="flex h-screen flex-col gap-y-4">
       <Nav />
-      <Outlet />
+      <div className="">
+        <Outlet />
+      </div>
+
       <div className="mt-auto">
         <Footer />
       </div>

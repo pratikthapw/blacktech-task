@@ -8,7 +8,7 @@ export default function Appointment() {
   const formProps = { isFormOpen, setIsFormOpen };
 
   return (
-    <div className="flex flex-col gap-y-4 px-6">
+    <div className="flex flex-col gap-y-4">
       <AppointForm {...formProps} />
       <InputBox />
       <ShowAppoints {...formProps} />

@@ -4,7 +4,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher";
 export default function Nav() {
   return (
     <>
-      <nav className="sticky top-0 flex w-full items-center justify-between bg-slate-200 px-6 py-4 shadow-lg dark:bg-slate-800">
+      <nav className="sticky top-0 flex w-full items-center justify-between bg-slate-200 py-4 dark:bg-slate-800">
         <ul className="flex w-9/12 items-center justify-between sm:w-5/12 lg:w-3/12">
           <li>
             <NavLink

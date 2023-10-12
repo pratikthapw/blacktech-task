@@ -2,7 +2,7 @@ import ShowPhotos from "../components/ShowPhotos";
 
 export default function PhotoLibrary() {
   return (
-    <div>
+    <div className="">
       <ShowPhotos />
     </div>
   );
