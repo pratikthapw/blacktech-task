@@ -10,7 +10,7 @@ export default function Appointment() {
   return (
     <div className="flex flex-col gap-y-8">
       <AppointForm {...formProps} />
-      <InputBox />
+      <InputBox type={"sortBy"} />
       <ShowAppoints {...formProps} />
     </div>
   );

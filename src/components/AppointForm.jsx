@@ -45,7 +45,7 @@ export default function AppointForm({ isFormOpen, setIsFormOpen }) {
   }
 
   if (isLoading || isAdding) {
-    return <h2>Loading...</h2>;
+    return <h2></h2>;
   }
 
   return (
@@ -54,7 +54,7 @@ export default function AppointForm({ isFormOpen, setIsFormOpen }) {
         onClick={() => setIsFormOpen((v) => !v)}
         className={`w-full ${
           isFormOpen ? "rounded-t-lg" : "rounded-lg"
-        } bg-green-600 py-2 text-center font-bold`}
+        } bg-green-600 py-2 text-center font-bold hover:bg-green-500`}
       >
         Add Appointment
       </button>
@@ -118,7 +118,7 @@ function FormInputs({
   defaultValue = "",
 }) {
   return (
-    <div className="flex justify-between gap-x-4">
+    <div className="flex items-start justify-between gap-x-4">
       <label htmlFor={forId} className="font-medium">
         {label}
       </label>

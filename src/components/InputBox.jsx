@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-export default function InputBox({ setSubmitValue, type }) {
+export default function InputBox({ setSubmitValue, type = "search" }) {
   const [inputValue, setInputValue] = useState(null);
 
   return (
@@ -14,16 +14,21 @@ export default function InputBox({ setSubmitValue, type }) {
           placeholder="Search"
         />
       </div>
-
-      <button
-        className="text-md rounded-md bg-green-600 px-6 py-3 font-bold tracking-wider hover:bg-green-500"
-        onClick={(e) => {
-          e.preventDefault();
-          setSubmitValue(() => inputValue);
-        }}
-      >
-        Search
-      </button>
+      {type === "search" ? (
+        <button
+          className="text-md self-stretch rounded-md bg-green-600 px-6 py-3 font-bold tracking-wider hover:bg-green-500"
+          onClick={(e) => {
+            e.preventDefault();
+            setSubmitValue(() => inputValue);
+          }}
+        >
+          Search
+        </button>
+      ) : (
+        <button className="text-md self-stretch rounded-md bg-green-600 px-6 py-3 font-bold tracking-wider hover:bg-green-500">
+          Sort_By
+        </button>
+      )}
     </form>
   );
 }

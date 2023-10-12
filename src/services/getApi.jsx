@@ -1,13 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 import { createApi } from "unsplash-js";
 
+const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const api = createApi({
-  accessKey: "RcW0Oo8z75hmn84JuLe57XSXOWjeDFpiMqsEMxJ88PQ",
+  accessKey: UNSPLASH_API_KEY,
 });
 
 const supabaseUrl = "https://mjzbcimgxzvjsdtvhmka.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qemJjaW1neHp2anNkdHZobWthIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY5NTE3MjgsImV4cCI6MjAxMjUyNzcyOH0.vvvNVxJNMd6Fc11YNz7NkwS-AAlT82bQaZwiLnYUp5o";
+const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function getImages(submitValue, pageParam) {

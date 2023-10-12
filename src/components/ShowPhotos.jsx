@@ -15,7 +15,7 @@ export default function ShowPhotos() {
 
   return (
     <div className="flex flex-col justify-center gap-y-8">
-      <InputBox setSubmitValue={setSubmitValue} type={"photo"} />
+      <InputBox setSubmitValue={setSubmitValue} type={"search"} />
       <div className="mx-auto grid max-w-7xl gap-4 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {imgData?.map((image) => (
           <ImgCompLayout key={image.id} image={image} />
@@ -48,7 +48,7 @@ function ImgCompLayout({ image }) {
       <div className="flex w-full items-center justify-between">
         <p className="flex items-center gap-x-1 text-2xl text-red-400">
           <AiFillHeart />
-          <span className="text-sm font-medium text-slate-100">
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100 ">
             {image.likes}
           </span>
         </p>
