@@ -105,12 +105,12 @@ function FormInputs({
   defaultValue = "",
 }) {
   return (
-    <div className="flex items-start justify-between gap-x-4">
+    <div className="flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
       <label htmlFor={forId} className="font-medium">
         {label}
       </label>
       {type !== "textarea" ? (
-        <div className="h-8 w-6/12 max-w-xs rounded-md">
+        <div className="h-8 w-full rounded-md sm:w-6/12 sm:max-w-xs">
           <input
             id={forId}
             type={inputType}
@@ -125,7 +125,7 @@ function FormInputs({
           cols="30"
           rows="3"
           defaultValue={defaultValue}
-          className="border-1 w-8/12 rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100"
+          className="border-1 w-full rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100 sm:w-8/12"
           placeholder="Detailed comments about the condition"
           {...register(forId)}
         ></textarea>

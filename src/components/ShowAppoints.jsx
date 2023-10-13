@@ -66,9 +66,9 @@ function AppointLayout({
   }
 
   return (
-    <div className="flex items-start justify-between gap-x-4 pt-4">
-      <div className="flex items-start gap-x-2">
-        <div className="flex flex-col items-center gap-y-2">
+    <div className="flex flex-col items-start justify-between gap-4 pt-4 sm:flex-row">
+      <div className="flex flex-col items-start gap-2 sm:flex-row">
+        <div className="flex items-center gap-2 sm:flex-col">
           <p
             className="cursor-pointer rounded-sm bg-blue-500 p-1 hover:bg-blue-400"
             onClick={handleUpdate}

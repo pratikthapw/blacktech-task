@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { addInputValue } from "./inputSlice";
+import SortBy from "./SortBy";
 
 export default function InputBox({ setSubmitValue, type = "search" }) {
   const { inputValue } = useSelector((state) => state.search);
@@ -27,9 +28,10 @@ export default function InputBox({ setSubmitValue, type = "search" }) {
           Search
         </button>
       ) : (
-        <button className="text-md self-stretch rounded-md bg-green-600 px-6 py-3 font-bold tracking-wider hover:bg-green-500">
-          Sort_By
-        </button>
+        <SortBy />
+        // <button className="text-md self-stretch rounded-md bg-green-600 px-6 py-3 font-bold tracking-wider hover:bg-green-500">
+        //   Sort_By
+        // </button>
       )}
     </form>
   );
