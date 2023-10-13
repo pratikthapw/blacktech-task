@@ -3,9 +3,22 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import useAppointRows from "../Hooks/useAppointRows";
 import useDeleteAppoint from "../Hooks/useDeleteAppoint";
+import { useSelector } from "react-redux";
+import filterAppointments from "../services/filterAppointments";
+import { useEffect, useState } from "react";
 
 export default function ShowAppoints(formProps) {
   const { appoints, isLoading } = useAppointRows();
+  const { inputValue } = useSelector((state) => state.search);
+  const [updatedAppoint, setUpdatedAppoint] = useState([]);
+
+  useEffect(() => {
+    if (inputValue.length > 0) {
+      setUpdatedAppoint(filterAppointments(appoints, inputValue));
+    } else {
+      setUpdatedAppoint(appoints);
+    }
+  }, [inputValue, appoints]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -13,7 +26,7 @@ export default function ShowAppoints(formProps) {
 
   return (
     <div className="flex flex-col gap-y-4 divide-y-2">
-      {appoints.map((item) => (
+      {updatedAppoint?.map((item) => (
         <AppointLayout
           key={item.id}
           rowData={item}
