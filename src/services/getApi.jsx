@@ -19,7 +19,7 @@ export async function getImages(submitValue, pageParam) {
     });
     return result;
   } catch (error) {
-    console.log("something went wrong!");
+    throw new Error("something went wrong!");
   }
 }
 

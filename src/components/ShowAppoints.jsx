@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import { useSearchParams } from "react-router-dom";
 import useAppointRows from "../Hooks/useAppointRows";
 import useDeleteAppoint from "../Hooks/useDeleteAppoint";
 
@@ -15,22 +14,38 @@ export default function ShowAppoints(formProps) {
   return (
     <div className="flex flex-col gap-y-4 divide-y-2">
       {appoints.map((item) => (
-        <AppointLayout key={item.id} rowData={item} {...formProps} />
+        <AppointLayout
+          key={item.id}
+          rowData={item}
+          {...formProps}
+          appointment={appoints}
+        />
       ))}
     </div>
   );
 }
 
-function AppointLayout({ rowData, setIsFormOpen }) {
-  const [, setSearchParams] = useSearchParams();
+function AppointLayout({
+  rowData,
+  setIsFormOpen,
+  setValue,
+  appointment,
+  setRowId,
+}) {
   const { deleteAppoint, isDeleting } = useDeleteAppoint();
 
   function handleDelete() {
     deleteAppoint(rowData.id);
   }
   function handleUpdate() {
+    const selectedRow = appointment?.filter((item) => item.id == rowData.id)[0];
     setIsFormOpen((v) => (v ? v : !v));
-    setSearchParams({ id: rowData?.id });
+    setRowId(() => rowData.id);
+    setValue("owner_name", selectedRow?.owner_name, { shouldDirty: true });
+    setValue("pet_name", selectedRow?.pet_name, { shouldDirty: true });
+    setValue("date", selectedRow?.date, { shouldDirty: true });
+    setValue("time", selectedRow?.time, { shouldDirty: true });
+    setValue("note", selectedRow?.note, { shouldDirty: true });
   }
 
   if (isDeleting) {
