@@ -3,22 +3,33 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import useAppointRows from "../Hooks/useAppointRows";
 import useDeleteAppoint from "../Hooks/useDeleteAppoint";
-import { useSelector } from "react-redux";
-import filterAppointments from "../services/filterAppointments";
+import { useDispatch, useSelector } from "react-redux";
+import filterAppointments, {
+  sortAppointment,
+} from "../services/filterAppointments";
 import { useEffect, useState } from "react";
+import { addAppointData } from "./sortSlice";
 
 export default function ShowAppoints(formProps) {
   const { appoints, isLoading } = useAppointRows();
+  const dispatch = useDispatch();
+  dispatch(addAppointData(appoints));
+
   const { inputValue } = useSelector((state) => state.search);
+  const sortState = useSelector((state) => state.sort);
+  const { appointmentData } = sortState;
+
   const [updatedAppoint, setUpdatedAppoint] = useState([]);
 
   useEffect(() => {
     if (inputValue.length > 0) {
-      setUpdatedAppoint(filterAppointments(appoints, inputValue));
+      setUpdatedAppoint(filterAppointments(appointmentData, inputValue));
     } else {
-      setUpdatedAppoint(appoints);
+      if (appointmentData) {
+        sortAppointment(setUpdatedAppoint, sortState);
+      }
     }
-  }, [inputValue, appoints]);
+  }, [inputValue, sortState, appointmentData]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -85,11 +96,11 @@ function AppointLayout({
 
         <div>
           <h2 className="text-lg font-bold capitalize text-green-500">
-            {rowData.owner_name}
+            {rowData.pet_name}
           </h2>
           <p className="capitalize">
             <b className=" text-green-500">Owner: </b>
-            {rowData.pet_name}
+            {rowData.owner_name}
           </p>
           <p>{rowData.note}</p>
         </div>

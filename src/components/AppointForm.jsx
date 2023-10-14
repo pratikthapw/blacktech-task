@@ -1,4 +1,3 @@
-import { DevTool } from "@hookform/devtools";
 import { useNavigate } from "react-router-dom";
 import useAddAppoint from "../Hooks/useAddAppoint";
 import useUpdateAppoint from "../Hooks/useUpdateAppoint";
@@ -12,7 +11,7 @@ export default function AppointForm({
   setRowId,
 }) {
   const navigate = useNavigate();
-  const { register, control, handleSubmit, reset } = hookForm;
+  const { register, handleSubmit, reset } = hookForm;
 
   const { addAppoint, isAdding } = useAddAppoint();
   const { updateAppoint } = useUpdateAppoint();
@@ -91,7 +90,6 @@ export default function AppointForm({
           </button>
         </form>
       ) : null}
-      <DevTool control={control} />
     </div>
   );
 }
