@@ -15,21 +15,21 @@ export default function ShowAppoints(formProps) {
   const dispatch = useDispatch();
   dispatch(addAppointData(appoints));
 
-  const { inputValue } = useSelector((state) => state.search);
+  const { inputValueAppoint } = useSelector((state) => state.search);
   const sortState = useSelector((state) => state.sort);
   const { appointmentData } = sortState;
 
   const [updatedAppoint, setUpdatedAppoint] = useState([]);
 
   useEffect(() => {
-    if (inputValue.length > 0) {
-      setUpdatedAppoint(filterAppointments(appointmentData, inputValue));
+    if (inputValueAppoint.length > 0) {
+      setUpdatedAppoint(filterAppointments(appointmentData, inputValueAppoint));
     } else {
       if (appointmentData) {
         sortAppointment(setUpdatedAppoint, sortState);
       }
     }
-  }, [inputValue, sortState, appointmentData]);
+  }, [inputValueAppoint, sortState, appointmentData]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -61,6 +61,11 @@ function AppointLayout({
   function handleDelete() {
     deleteAppoint(rowData.id);
   }
+
+  const createMarkup = (html) => {
+    return { __html: html };
+  };
+
   function handleUpdate() {
     const selectedRow = appointment?.filter((item) => item.id == rowData.id)[0];
     setIsFormOpen((v) => (v ? v : !v));
@@ -91,14 +96,17 @@ function AppointLayout({
         </div>
 
         <div>
-          <h2 className="text-lg font-bold capitalize text-green-600">
-            {rowData.pet_name}
-          </h2>
+          <h2
+            className="text-lg font-bold capitalize text-green-600"
+            dangerouslySetInnerHTML={createMarkup(rowData.pet_name)}
+          ></h2>
           <p className="capitalize">
             <b className=" text-green-600">Owner: </b>
-            {rowData.owner_name}
+            <span
+              dangerouslySetInnerHTML={createMarkup(rowData.owner_name)}
+            ></span>
           </p>
-          <p>{rowData.note}</p>
+          <p dangerouslySetInnerHTML={createMarkup(rowData.note)}></p>
         </div>
       </div>
 

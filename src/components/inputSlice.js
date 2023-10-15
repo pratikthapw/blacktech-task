@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  inputValue: "",
+  inputValuePhoto: "momo",
+  inputValueAppoint: "",
 };
 
 const inputSlice = createSlice({
   name: "input",
   initialState,
   reducers: {
-    addInputValue(state, action) {
-      state.inputValue = action.payload;
+    addInputPhoto(state, action) {
+      state.inputValuePhoto = action.payload;
+    },
+    addInputAppoint(state, action) {
+      state.inputValueAppoint = action.payload;
     },
   },
 });
 
-export const { addInputValue } = inputSlice.actions;
+export const { addInputPhoto, addInputAppoint } = inputSlice.actions;
 export default inputSlice.reducer;

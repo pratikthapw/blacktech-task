@@ -1,12 +1,35 @@
 export default function filterAppointments(appointData, inputValue) {
-  const result = appointData?.filter((item) => {
-    return (
-      item?.owner_name.toLowerCase().includes(inputValue.toLowerCase()) ||
-      item?.pet_name.toLowerCase().includes(inputValue.toLowerCase()) ||
-      item?.note.toLowerCase().includes(inputValue.toLowerCase())
-    );
-  });
-  return result;
+  const higlightedFilter = appointData
+    .filter(
+      (item) =>
+        item.owner_name.toLowerCase().includes(inputValue.toLowerCase()) ||
+        item.pet_name.toLowerCase().includes(inputValue.toLowerCase()) ||
+        item.note.toLowerCase().includes(inputValue.toLowerCase()),
+    )
+    .map((item) => {
+      let newOwner = item.owner_name.replace(
+        new RegExp(inputValue, "gi"),
+        (match) =>
+          `<mark style="background: #2769AA; color: white;">${match}</mark>`,
+      );
+      let newPet = item.pet_name.replace(
+        new RegExp(inputValue, "gi"),
+        (match) =>
+          `<mark style="background: #2769AA; color: white;">${match}</mark>`,
+      );
+      let newNote = item.note.replace(
+        new RegExp(inputValue, "gi"),
+        (match) =>
+          `<mark style="background: #2769AA; color: white;">${match}</mark>`,
+      );
+      return {
+        ...item,
+        owner_name: newOwner,
+        pet_name: newPet,
+        note: newNote,
+      };
+    });
+  return higlightedFilter;
 }
 
 export function sortAppointment(setUpdatedAppoint, sortState) {

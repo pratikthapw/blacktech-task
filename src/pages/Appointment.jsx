@@ -5,8 +5,14 @@ import ShowAppoints from "../components/ShowAppoints";
 import { useForm } from "react-hook-form";
 
 export default function Appointment() {
-  const { register, setValue, control, handleSubmit, reset } = useForm();
-  const hookForm = { register, control, handleSubmit, reset };
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const hookForm = { register, handleSubmit, errors, reset };
   const [rowId, setRowId] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const formProps = { isFormOpen, rowId, setRowId, setIsFormOpen, setValue };

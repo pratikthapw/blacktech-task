@@ -11,7 +11,7 @@ export default function AppointForm({
   setRowId,
 }) {
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = hookForm;
+  const { handleSubmit, reset } = hookForm;
 
   const { addAppoint, isAdding } = useAddAppoint();
   const { updateAppoint } = useUpdateAppoint();
@@ -55,32 +55,32 @@ export default function AppointForm({
           className="border-1 flex flex-col gap-y-4 rounded-b-lg border border-t-0 border-slate-400 px-2 py-4 pt-4 dark:border-slate-600"
         >
           <FormInputs
+            hookForm={hookForm}
             forId={"owner_name"}
             label={"Owner Name"}
-            register={register}
           />
           <FormInputs
+            hookForm={hookForm}
             forId={"pet_name"}
             label={"Pet Name"}
-            register={register}
           />
           <FormInputs
+            hookForm={hookForm}
             forId={"date"}
             label={"Apt Date"}
-            register={register}
             inputType={"date"}
           />
           <FormInputs
+            hookForm={hookForm}
             forId={"time"}
             label={"Apt Time"}
-            register={register}
             inputType={"time"}
           />
           <FormInputs
+            hookForm={hookForm}
             forId={"note"}
             label={"Appointment Notes"}
             type={"textarea"}
-            register={register}
           />
           <button
             type="submit"
@@ -97,25 +97,31 @@ export default function AppointForm({
 function FormInputs({
   forId,
   label,
-  register,
+  hookForm,
   type = "input",
   inputType = "text",
   defaultValue = "",
 }) {
+  const { register, errors } = hookForm;
   return (
     <div className="flex flex-col items-start justify-between gap-x-4 gap-y-2 sm:flex-row">
       <label htmlFor={forId} className="font-medium">
-        {label}
+        {label} {type !== "textarea" && "*"}
       </label>
       {type !== "textarea" ? (
-        <div className="h-8 w-full rounded-md sm:w-6/12 sm:max-w-xs">
-          <input
-            id={forId}
-            type={inputType}
-            className="border-1 h-full w-full rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100"
-            defaultValue={defaultValue}
-            {...register(forId)}
-          />
+        <div className=" w-full rounded-md sm:w-6/12 sm:max-w-xs">
+          <div className="h-8 ">
+            <input
+              id={forId}
+              type={inputType}
+              className="border-1 h-full w-full rounded-md border border-slate-400 bg-transparent px-2 py-1 text-slate-800 outline-none focus:border-green-500 dark:text-slate-100"
+              defaultValue={defaultValue}
+              {...register(forId, { required: true })}
+            />
+          </div>
+          {errors[forId]?.type === "required" && (
+            <span className="text-xs text-red-500">{forId} is required</span>
+          )}
         </div>
       ) : (
         <textarea
