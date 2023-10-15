@@ -41,7 +41,7 @@ export default function SortBy() {
                   key={index}
                   className={
                     index === activeIndex1
-                      ? `${sortListClass} font-bold text-green-300`
+                      ? `${sortListClass} font-bold text-green-600`
                       : sortListClass
                   }
                   onClick={() => handleActiveIndex1(item, index)}
@@ -57,7 +57,7 @@ export default function SortBy() {
                   key={index}
                   className={
                     index === activeIndex2
-                      ? `${sortListClass} font-bold text-green-300`
+                      ? `${sortListClass} font-bold text-green-600`
                       : sortListClass
                   }
                   onClick={() => handleActiveIndex2(item, index)}

@@ -3,31 +3,36 @@ import InputBox from "./InputBox";
 import { useState } from "react";
 import useUnsplashImg from "../Hooks/useUnsplashImg";
 import { AiFillHeart } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
 
 export default function ShowPhotos() {
   const [submitValue, setSubmitValue] = useState("restaurant");
   const { imgData, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useUnsplashImg(submitValue);
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
   return (
     <div className="flex flex-col justify-center gap-y-8">
       <InputBox setSubmitValue={setSubmitValue} type={"search"} />
       <div className="mx-auto grid max-w-7xl gap-4 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {imgData?.map((image) => (
-          <ImgCompLayout key={image.id} image={image} />
-        ))}
+        {isLoading
+          ? Array.from({ length: 10 }).map((_, i) => (
+              <Skeleton key={i} className="dark:text h-72 w-72" />
+            ))
+          : imgData?.map((image) => (
+              <ImgCompLayout
+                key={image.id}
+                image={image}
+                isLoading={isLoading}
+              />
+            ))}
       </div>
 
       <button
-        disabled={!hasNextPage || isFetchingNextPage}
+        disabled={!hasNextPage || isFetchingNextPage || isLoading}
         onClick={() => fetchNextPage()}
         className="self-center rounded-lg bg-purple-400 px-4 py-2 text-center font-bold"
       >
-        {isFetchingNextPage
+        {isFetchingNextPage || isLoading
           ? "Loading more..."
           : hasNextPage
           ? "Load More"

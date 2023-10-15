@@ -56,7 +56,7 @@ function AppointLayout({
   appointment,
   setRowId,
 }) {
-  const { deleteAppoint, isDeleting } = useDeleteAppoint();
+  const { deleteAppoint } = useDeleteAppoint();
 
   function handleDelete() {
     deleteAppoint(rowData.id);
@@ -70,10 +70,6 @@ function AppointLayout({
     setValue("date", selectedRow?.date, { shouldDirty: true });
     setValue("time", selectedRow?.time, { shouldDirty: true });
     setValue("note", selectedRow?.note, { shouldDirty: true });
-  }
-
-  if (isDeleting) {
-    <h2>Deleting</h2>;
   }
 
   return (
@@ -95,11 +91,11 @@ function AppointLayout({
         </div>
 
         <div>
-          <h2 className="text-lg font-bold capitalize text-green-500">
+          <h2 className="text-lg font-bold capitalize text-green-600">
             {rowData.pet_name}
           </h2>
           <p className="capitalize">
-            <b className=" text-green-500">Owner: </b>
+            <b className=" text-green-600">Owner: </b>
             {rowData.owner_name}
           </p>
           <p>{rowData.note}</p>
